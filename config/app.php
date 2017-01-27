@@ -180,6 +180,7 @@ return [
 
 	    Collective\Html\HtmlServiceProvider::class,
         Unisharp\Ckeditor\ServiceProvider::class,
+	    Laracasts\Flash\FlashServiceProvider::class,
     ],
 
     /*

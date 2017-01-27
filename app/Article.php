@@ -43,7 +43,7 @@ class Article extends Model
     /**
      * query attribute for scheduledToBePublished()
      */
-    public function scopeScheduledToBePublished()
+    public function scopeScheduledToBePublished($query)
     {
         $query->where('published_at', '>', Carbon::now());
     }
@@ -59,5 +59,9 @@ class Article extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function tags(){
+	    return $this->belongsToMany( 'App\Tag' );
     }
 }

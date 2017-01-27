@@ -1,3 +1,12 @@
 ul{
     list-style: none;
 }
+h4{
+    color:#3097d1;
+}
+.body{
+    font-size:18px;
+}
+p.small{
+    font-size:15px;
+}

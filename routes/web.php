@@ -14,4 +14,5 @@
 Route::resource('articles', 'ArticlesController');
 Auth::routes();
 Route::get('/', 'ArticlesController@index')->name('articles');
+Route::get('/unpublished-articles', 'ArticlesController@indexUnPublished')->name('unpublished');
 Route::get('/home', 'HomeController@index')->name('dashboard');

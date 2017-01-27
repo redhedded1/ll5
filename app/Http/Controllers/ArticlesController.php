@@ -26,6 +26,13 @@ class ArticlesController extends Controller
 	    return view( 'articles.index', compact('articles') );
     }
 
+    public function indexUnPublished()
+    {
+        $articles = Article::latest('published_at')->scheduledToBePublished()->get();
+
+	    return view( 'articles.index', compact('articles') );
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -44,9 +51,11 @@ class ArticlesController extends Controller
      */
     public function store(ArticleRequest $request)
     {
-    	Auth::user()->articles()->save(new Article($request->all()));
+    	Auth::user()->articles()->create($request->all());
+		$message = 'Your article has been created.';
+	    flash( $message, 'success' );
 
-	    return redirect()->route( 'articles.index' );
+	   return redirect()->route( 'articles.index' );
     }
 
     /**
@@ -61,8 +70,9 @@ class ArticlesController extends Controller
 		    $article = Article::findOrFail($id);
 	    } catch(ModelNotFoundException $ex) {
 		    $message = 'Could not find the article';
+		    flash($message, 'danger')->important();
 
-		    return redirect()->route( 'articles.index' )->with( 'message', $message );
+		    return redirect()->route( 'articles.index' );
 	    }
 
 	    return view( 'articles.show', compact( 'article' ) );
@@ -93,6 +103,9 @@ class ArticlesController extends Controller
 
 	    $article->update( $request->all() );
 
+	    $message = 'Article updated...';
+	    flash($message);
+
 	    return redirect()->route('articles.index');
     }
 
@@ -104,6 +117,11 @@ class ArticlesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $deletedRows = Article::findOrFail($id)->delete();
+
+	    $message = 'Article deleted...';
+	    flash( $message, 'warning' );
+
+	    return redirect()->route('articles.index');
     }
 }

@@ -4,7 +4,6 @@
 (function($){
     $(document).ready(function(){
         $('textarea').ckeditor();
-        // $(window).on('load', function(){
             var editor = CKEDITOR.instances['body'];
             if(editor){
                 editor.on('blur', function() {
@@ -18,6 +17,8 @@
                     $('#excerpt').val(truncatedStr);
                 });
             }
-        // });
+
+        $('div.alert').not('alert.important').delay(3000).slideUp(300);
+        $('#flash-overlay-modal').modal();
     });
 })(jQuery);
