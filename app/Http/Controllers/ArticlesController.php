@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Http\Requests\ArticleRequest;
+use App\Tag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -40,18 +41,40 @@ class ArticlesController extends Controller
      */
     public function create()
     {
-	    return view( 'articles.create' );
+	    $tags = Tag::pluck( 'name', 'id' );
+	    $tag_list = null;
+	    return view( 'articles.create', compact('tags', 'tag_list') );
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(ArticleRequest $request)
+
+	/**
+	 * Save article
+	 *
+	 * @param ArticleRequest $request
+	 *
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
+	public function store(ArticleRequest $request)
     {
-    	Auth::user()->articles()->create($request->all());
+    	$article = Auth::user()->articles()->create($request->all());
+
+    	$tagList = $request->tag_list;
+    	if(is_array($request->tag_list)){
+    		$len = count($tagList);
+		    for ($i = 0; $i < $len; $i++) {
+			    if((string)(int)$tagList[$i] !== $tagList[$i]){
+					$tag = Tag::create(['name' => $tagList[$i]]);
+					$tagList[$i] = $tag->id;
+			    }
+			}
+	    }else{
+		    if((string)(int)$tagList !== $tagList){
+			    $tag = Tag::create(['name' => $tagList]);
+			    $tagList[$i] = $tag->id;
+		    }
+	    }
+	    $this->syncTags($article, $tagList);
+
 		$message = 'Your article has been created.';
 	    flash( $message, 'success' );
 
@@ -61,52 +84,53 @@ class ArticlesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $article
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Article $article)
     {
-    	try{
-		    $article = Article::findOrFail($id);
-	    } catch(ModelNotFoundException $ex) {
-		    $message = 'Could not find the article';
-		    flash($message, 'danger')->important();
-
-		    return redirect()->route( 'articles.index' );
-	    }
-
 	    return view( 'articles.show', compact( 'article' ) );
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+
+	/**
+	 *
+	 * @param Article $article
+	 *
+	 * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+	 */
+	public function edit(Article $article)
     {
-	    $article = Article::findOrFail( $id );
-	    return view( 'articles.edit', compact('article') );
+	    $tags = Tag::pluck( 'name', 'id' );
+		$tag_list = $article->tags()->orderBy('id')->get()->pluck('id')->toArray();
+	    return view( 'articles.edit', compact('article', 'tags', 'tag_list') );
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(ArticleRequest $request, $id)
-    {
-        $article = Article::findOrFail($id);
 
+	/**
+	 * @param ArticleRequest $request
+	 * @param Article $article
+	 *
+	 * @return \Illuminate\Http\RedirectResponse
+	 */
+	public function update(ArticleRequest $request, Article $article)
+    {
 	    $article->update( $request->all() );
+
+	    $this->syncTags( $article, $request->tag_list );
 
 	    $message = 'Article updated...';
 	    flash($message);
 
 	    return redirect()->route('articles.index');
+    }
+
+	/**
+	 * @param Article $article
+	 * @param array $tags
+	 */
+	private function syncTags(Article $article, array $tags){
+	    $article->tags()->sync( $tags );
     }
 
     /**
@@ -120,7 +144,7 @@ class ArticlesController extends Controller
         $deletedRows = Article::findOrFail($id)->delete();
 
 	    $message = 'Article deleted...';
-	    flash( $message, 'warning' );
+	    flash( $message, 'danger' );
 
 	    return redirect()->route('articles.index');
     }

@@ -3,9 +3,12 @@
 @section('content')
     <div class="container">
     <h1>Articles</h1>
-    <hr />
+    @if(Request::url() === route('articlesTagged', basename(Request::url())))
+        <h1>Tagged: {{ basename(Request::url()) }}</h1>
+    @endif
+        <hr />
     @foreach ($articles as $article)
-        <article>
+            <article>
             <h2>
                 <a href="{{ action('ArticlesController@show', [$article->id]) }}">{{ $article->title }}</a>
                 <p class="small">by {{ $article->user->name }}</p>

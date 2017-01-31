@@ -19,6 +19,7 @@ class CreateTagsTable extends Migration
             $table->timestamps();
         });
 
+        // pivot table naming convention singular, alphabetical order
         Schema::create('article_tag', function(Blueprint $table){
 	        $table->integer( 'article_id' )->unsigned()->index();
 	        $table->foreign( 'article_id' )->references( 'id' )->on( 'articles' )->onDelete( 'cascade' );

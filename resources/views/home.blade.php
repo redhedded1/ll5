@@ -29,13 +29,6 @@
                                             <div class="clearfix"></div>
                                         </div>
                                     </a>
-                                    <a href="/articles/">
-                                        <div class="panel-footer">
-                                            <span style="color:#337ab7;" class="pull-left">Go To Blog</span>
-                                            <span style="color:#337ab7;" class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </a>
                                     <a href="/unpublished-articles/">
                                         <div class="panel-footer">
                                             <span style="color:#337ab7;" class="pull-left">View Scheduled Articles</span>

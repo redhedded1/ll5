@@ -13,7 +13,11 @@
 </div>
 <div class="form-group">
     {!! Form::label('published_at', 'Publish on:') !!}
-    {!! Form::input('date', 'published_at', date('Y-m-d'), ['class' => 'form-control']) !!}
+    {!! Form::input('date', 'published_at', $article->published_at->format('Y-m-d'), ['class' => 'form-control']) !!}
+</div>
+<div class="form-group">
+    {!! Form::label('tag_list', 'Tags') !!}
+    {!! Form::select('tag_list[]', $tags, $tag_list, ['id' => 'tag_list', 'class' => 'form-control', 'multiple']) !!}
 </div>
 <div class="form-group col-md-2 col-md-offset-10">
     {!! Form::submit($submitButton, ['class' => 'btn btn-primary form-control']) !!}

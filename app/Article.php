@@ -29,7 +29,7 @@ class Article extends Model
     ];
 
     /**
-     * attribute for published_at is set to today as default
+     * attribute for published_at is set
      *
      * @param $date
      */
@@ -38,7 +38,14 @@ class Article extends Model
         $this->attributes['published_at'] = Carbon::parse($date);
     }
 
-    //diffForHumans
+	/**
+	 * @param $date
+	 *
+	 * @return Carbon
+	 */
+	public function getPublishedAtAttribute($date){
+	    return new Carbon( $date );
+    }
 
     /**
      * query attribute for scheduledToBePublished()
@@ -56,12 +63,25 @@ class Article extends Model
         $query->where('published_at', '<=', Carbon::now());
     }
 
-    public function user()
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
+	public function user()
     {
         return $this->belongsTo('App\User');
     }
 
-    public function tags(){
+	/**
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+	 */
+	public function tags(){
 	    return $this->belongsToMany( 'App\Tag' );
+    }
+
+	/**
+	 * @return mixed
+	 */
+	public function getTagListAttribute(){
+	    return $this->tags->pluck( 'id' );
     }
 }
