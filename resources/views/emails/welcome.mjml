@@ -1,0 +1,62 @@
+<mjml>
+    <mj-head>
+        <!-- Head components go here: https://mjml.io/documentation/#standard-head-components -->
+        <mj-title>Welcome to Larablog 5.3</mj-title>
+        <mj-attributes>
+            <mj-all padding="0" />
+            <mj-text font-family="sans-serif" color="#8e8b85" />
+            <mj-class name="pill" font-weight="700" color="#d5ad4b" border-radius="50" border="2px solid #d5ad4b" font-size="16px" line-height="16px" padding="8 20 20 20" inner-padding="10 75 10 75" background-color="transparent" />
+            <mj-class name="hdr" font-size="18px" font-weight="bold" />
+            <mj-class name="ico" font-family="Helvetica" font-size="14px" align="center" padding="0 0"/>
+        </mj-attributes>
+
+    </mj-head>
+
+    <!-- All of the content of our email will go in mj-body -->
+    <mj-body>
+
+        <!-- mj-container defines the default styling of our email, including the default width, set to 600px but overwritable -->
+        <mj-container>
+            <!-- Body components go here (https://mjml.io/documentation/#standard-body-components) -->
+            <mj-section padding="30 20" background-color="#45495d">
+                <mj-column>
+                    <mj-text padding="0 2" align="center" font-size="24px" color="#F2F2F2">
+                        Welcome to Larablog 5.3
+                    </mj-text>
+                </mj-column>
+            </mj-section>
+            <mj-section padding="40 20 20 20" background-color="#ffffff">
+                    <mj-column>
+                        <mj-text mj-class="hdr">
+                            Welcome {{ $user->name }}!
+                        </mj-text>
+                        <mj-text align="left" font-size="16px">
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut non aliquet magna. In hac habitasse platea dictumst. Nullam volutpat quis ipsum ut ultricies. Aliquam erat volutpat. Proin pellentesque felis nec dictum tincidunt. Quisque et odio et neque consequat elementum vitae ac justo. Nunc odio eros, lacinia vel nunc id, lacinia sagittis lorem.
+                        </mj-text>
+                    </mj-column>
+            </mj-section>
+            <mj-section padding="20" background-color="#ffffff">
+                <mj-column>
+                        <mj-text mj-class="hdr">
+                            Your Account
+                        </mj-text>
+                        <mj-text align="left" font-size="16px">
+                            Praesent dignissim lectus at risus laoreet, nec vulputate magna aliquet. Pellentesque bibendum hendrerit eros, a accumsan dolor. Nunc commodo fringilla blandit. Nunc mattis sem sit amet ligula maximus efficitur. In aliquam, urna vel mattis sodales, nisl tortor rhoncus erat, et bibendum augue eros auctor nibh. Praesent placerat massa justo, a vulputate leo dapibus et. Vivamus semper felis id nulla ullamcorper, vel accumsan erat mollis. Donec orci lacus, hendrerit a commodo a, pretium porta ex. Morbi et cursus nunc, malesuada rutrum mauris. Vestibulum neque libero, ullamcorper vitae turpis quis, fringilla tempor erat. Ut in hendrerit neque.
+                        </mj-text>
+                    </mj-column>
+            </mj-section>
+            <mj-section padding="20">
+                <mj-column>
+                    <mj-button padding="20 0 10 0" mj-class="pill" href="http://ll5.ngrok.io/password/reset/{{ $token }}">
+                        Sign In
+                    </mj-button>
+                </mj-column>
+            </mj-section>
+            <mj-section padding="0 0 20 0">
+                <mj-column>
+                    <mj-divider border-width="5px" border-color="#EEEBE7" />
+                </mj-column>
+            </mj-section>
+        </mj-container>
+    </mj-body>
+</mjml>

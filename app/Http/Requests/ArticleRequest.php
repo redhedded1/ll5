@@ -28,6 +28,7 @@ class ArticleRequest extends FormRequest
             'excerpt' => 'required',
             'body' => 'required',
             'published_at' => 'required|date',
+	        'image' => 'mimes:png,jpg,jpeg',
         ];
     }
 }

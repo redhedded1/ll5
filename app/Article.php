@@ -4,9 +4,12 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
 
-class Article extends Model
+class Article extends Model implements HasMedia
 {
+	use HasMediaTrait;
     /**
      * fields that can be mass assigned
      * protects against SQL injection
@@ -84,4 +87,8 @@ class Article extends Model
 	public function getTagListAttribute(){
 	    return $this->tags->pluck( 'id' );
     }
+
+//    public function media(){
+//	    return $this->hasOne( 'App\Media' );
+//    }
 }

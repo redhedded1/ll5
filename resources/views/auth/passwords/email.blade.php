@@ -2,7 +2,21 @@
 
 <!-- Main Content -->
 @section('content')
-<div class="container">
+    <header class="intro-header" style="background-image: url('/img/Texture_01.jpg');">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="page-heading">
+                        <h1>Password Reset</h1>
+                        <hr class="small">
+                        <span class="subheading">Mail Password Reset Link</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">

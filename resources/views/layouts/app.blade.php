@@ -13,9 +13,11 @@
     <!-- Styles -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/clean-blog.css" rel="stylesheet">
     <link href="/css/styles.css" rel="stylesheet">
-
     <!-- Scripts -->
     <script src="https://use.fontawesome.com/b174e265ef.js"></script>
     <script>
@@ -27,9 +29,10 @@
 <body>
     <div id="app">
         @include('partials.nav')
-        @include('vendor.flash.message')
         @yield('content')
     </div>
+
+    @include('partials.footer')
 
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

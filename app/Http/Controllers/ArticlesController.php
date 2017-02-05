@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Media;
 use App\Http\Requests\ArticleRequest;
 use App\Tag;
 use Illuminate\Support\Facades\Auth;
@@ -22,14 +23,14 @@ class ArticlesController extends Controller
      */
     public function index()
     {
-        $articles = Article::latest('published_at')->published()->get();
+        $articles = Article::latest('published_at')->published()->paginate(5);
 
 	    return view( 'articles.index', compact('articles') );
     }
 
     public function indexUnPublished()
     {
-        $articles = Article::latest('published_at')->scheduledToBePublished()->get();
+        $articles = Article::latest('published_at')->scheduledToBePublished()->paginate(5);
 
 	    return view( 'articles.index', compact('articles') );
     }
@@ -57,6 +58,7 @@ class ArticlesController extends Controller
 	public function store(ArticleRequest $request)
     {
     	$article = Auth::user()->articles()->create($request->all());
+	    $article->addMediaFromRequest( 'image' )->toCollection( 'images' );
 
     	$tagList = $request->tag_list;
     	if(is_array($request->tag_list)){
@@ -89,9 +91,14 @@ class ArticlesController extends Controller
      */
     public function show(Article $article)
     {
-	    return view( 'articles.show', compact( 'article' ) );
+    	$images = $article->getMedia();
+    	if(!$images->isEmpty()){
+    	    $imageUrl = $images[0]->getUrl();
+	    }else{
+    		$imageUrl = '';
+	    }
+	    return view( 'articles.show', compact( ['article', 'imageUrl'] ) );
     }
-
 
 	/**
 	 *
@@ -106,7 +113,6 @@ class ArticlesController extends Controller
 	    return view( 'articles.edit', compact('article', 'tags', 'tag_list') );
     }
 
-
 	/**
 	 * @param ArticleRequest $request
 	 * @param Article $article
@@ -116,6 +122,11 @@ class ArticlesController extends Controller
 	public function update(ArticleRequest $request, Article $article)
     {
 	    $article->update( $request->all() );
+
+	    if($request->hasFile('image')){
+		    $article->clearMediaCollection();
+		    $article->addMediaFromRequest( 'image' )->toCollection( 'images' );
+	    }
 
 	    $this->syncTags( $article, $request->tag_list );
 
