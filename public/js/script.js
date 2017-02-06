@@ -37,5 +37,10 @@
             multiple: true
         });
 
+        var menuTop = document.getElementById('cbp-spmenu-s3');
+        mobileMenuToggle.onclick = function() {
+            classie.toggle( this, 'active' );
+            classie.toggle( menuTop, 'cbp-spmenu-open' );
+        };
     });
 })(jQuery);

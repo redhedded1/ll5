@@ -85,18 +85,134 @@ p.small{
 .fa-circle:hover{
     color:#3d000f;
 }
-@media only screen and (max-width: 767px){
+#cbp-spmenu-s3{
+    display: none;
+}
+#mobileMenuToggle{
+    display: none;
+}
+@media only screen and (max-width: 767px) {
 
-    .navbar-default .navbar-toggle{
-        background-color:#ddd;
+    .logo{
+        max-width: 10%;
     }
-    .navbar-default .navbar-nav>li>a, .navbar-default .navbar-text {
-        color: #f2f2f2;
-        background-color: saddlebrown;
+
+    #cbp-spmenu-s3 {
+        display: block;
     }
-    .navbar-default .navbar-nav>li>a:focus,
-    .navbar-default .navbar-nav>li>a:hover {
+
+    #cbp-spmenu-s3:before {
+        content: '';
+        display: inline-block;
+        height: 100%;
+        vertical-align: middle;
+        margin-right: -0.25em; /* Adjusts for spacing */
+    }
+    #mobileMenuToggle {
+        display: inline-block;
+        position: absolute;
+        right: 0;
+        z-index: 9999;
+    }
+
+    #bigNav {
+        display: none;
+    }
+
+    /* General styles for all menus */
+    .cbp-spmenu {
+        background: rgba(208, 160, 113, 0.25);
+        position: relative;
+    }
+    
+    .cbp-spmenu a {
         color: #fff;
-        background-color:#222;
+        font-size: 1.1em;
+        font-weight: 300;
+    }
+
+    .cbp-spmenu a:hover {
+        background: #f2f2f2;
+    }
+
+    .cbp-spmenu a:active {
+        background: #3d0005;
+        color: #f2f2f2;
+    }
+
+    .cbp-spmenu-horizontal {
+        width: 100%;
+        height: 150px;
+        left: 0;
+        z-index: 1000;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .cbp-spmenu-horizontal a {
+        width: 15%;
+        padding:0.5em;
+        color:#5D000f;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    /* Horizontal menu that slides from the top or bottom */
+    .cbp-spmenu-top {
+        top: -183px;
+        height: 0;
+    }
+
+    .cbp-spmenu-top.cbp-spmenu-open {
+        top: 0px;
+        height: 150px;
+    }
+
+    /* Push classes applied to the body */
+    .cbp-spmenu-push {
+        overflow-x: hidden;
+        position: relative;
+        left: 0;
+    }
+
+    /* Transitions */
+    .cbp-spmenu,
+    .cbp-spmenu-push {
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        transition: all 0.3s ease;
     }
 }
+@media only screen and (max-width: 560px) {
+    .cbp-spmenu a {
+        font-size: 0.75em;
+        font-weight: 300;
+    }
+}
+@media only screen and (max-width: 320px) {
+
+
+}
+
+
+    /*@media screen and (max-height: 26.375em){*/
+
+        /*.cbp-spmenu-vertical {*/
+            /*font-size: 90%;*/
+            /*width: 190px;*/
+        /*}*/
+
+        /*.cbp-spmenu-left,*/
+        /*.cbp-spmenu-push-toleft {*/
+            /*left: -190px;*/
+        /*}*/
+
+        /*.cbp-spmenu-right {*/
+            /*right: -190px;*/
+        /*}*/
+
+        /*.cbp-spmenu-push-toright {*/
+            /*left: 190px;*/
+        /*}*/
+    /*}*/
+/*}*/

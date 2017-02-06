@@ -41,7 +41,7 @@
     {{--<script src="/js/app.js"></script>--}}
     <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
     <script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script>
-
+    <script src="/node_modules/desandro-classie/classie.js"></script>
     <script src="/js/script.js"></script>
 
 </body>

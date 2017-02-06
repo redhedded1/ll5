@@ -1,4 +1,33 @@
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+<nav class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top" id="cbp-spmenu-s3">
+    <img class="logo" src="/img/logo.png" alt="">
+    <a href="/"><i class="fa fa-home fa-2x" aria-hidden="true"></i></a>
+    <a href="/about"><i class="fa fa-info-circle fa-2x" aria-hidden="true"></i></a>
+    <a href="/contact"><i class="fa fa-address-book-o fa-2x" aria-hidden="true"></i></a>
+    @if (Auth::guest())
+        @if(route('login') !== Request::url())
+            <a href="{{ url('/login') }}"><i class="fa fa-sign-in fa-2x" aria-hidden="true"></i></a>
+        @endif
+    @else
+        @if(route('dashboard') !== Request::url())
+            <a href="{{ url('/home') }}"><i class="fa fa-th-large fa-2x" aria-hidden="true"></i></a>
+        @endif
+            <a href="{{ url('/logout') }}"
+               onclick="event.preventDefault(); document.getElementById('logout-mobile').submit();">
+                <i class="fa fa-sign-out fa-2x" aria-hidden="true"></i>
+            </a>
+            <form id="logout-mobile" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+            </form>
+    @endif
+</nav>
+
+{{--<div class="container-fluid">--}}
+    <button type="button" id="mobileMenuToggle">
+        Menu <i class="fa fa-bars"></i>
+    </button>
+{{--</div>--}}
+
+<nav id="bigNav" class="navbar navbar-default navbar-custom navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header page-scroll">
 
@@ -26,9 +55,9 @@
                     <li>
                         <a href="/about">About</a>
                     </li>
-                    <li>
+
                     <li>{!! link_to_action('ArticlesController@show', 'Newest Post: ' . $latest->title, [$latest->id]) !!}</li>
-                    </li>
+
                     <li>
                         <a href="/contact">Contact</a>
                     </li>
